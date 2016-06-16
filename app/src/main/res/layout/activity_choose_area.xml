@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="yeeaoo.weatherdemo.MainActivity">
-
-    <ImageView
+    tools:context="yeeaoo.weatherdemo.activity.ChooseAreaActivity"
+    android:orientation="vertical">
+    <include
+        layout="@layout/item_title"/>
+    <ListView
+        android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@mipmap/weather"
-        android:scaleType="fitXY"/>
-</RelativeLayout>
+        android:scrollbars="none"></ListView>
+</LinearLayout>

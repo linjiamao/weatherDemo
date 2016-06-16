@@ -3,6 +3,7 @@ package yeeaoo.weatherdemo.db;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class CoolWeatherDB {
      */
     public static final int VERSION = 1;
     private static CoolWeatherDB coolWeatherDB;
-    private SQLiteDatabase db;
+    private static SQLiteDatabase db;
 
     /**
      * 将构造方法私有化
@@ -52,9 +53,9 @@ public class CoolWeatherDB {
      */
     public void saveProvince(Province province){
         if(province!= null){
+            Log.d("weatherData",province.getProvinceName());
             ContentValues values = new ContentValues();
             values.put("province_name",province.getProvinceName());
-            values.put("province_code",province.getProvinceCode());
             db.insert("Province",null,values);
         }
     }
@@ -62,11 +63,9 @@ public class CoolWeatherDB {
     public List<Province> loadProvince(){
         List<Province> list = new ArrayList<>();
         Cursor c = db.query("Province",null,null,null,null,null,null);
-        if(c.moveToNext()){
+        while(c.moveToNext()){
             Province province = new Province();
-            province.setId(c.getInt(c.getColumnIndex("id")));
             province.setProvinceName(c.getString(c.getColumnIndex("province_name")));
-            province.setProvinceCode(c.getString(c.getColumnIndex("province_code")));
             list.add(province);
         }
         return list;
@@ -78,8 +77,7 @@ public class CoolWeatherDB {
        if(city!=null){
            ContentValues values = new ContentValues();
            values.put("city_name",city.getCityName());
-           values.put("city_code",city.getCityCode());
-           values.put("province_id",city.getProvince_id());
+           values.put("province_name",city.getProvince_name());
            db.insert("City",null,values);
        }
 
@@ -91,7 +89,7 @@ public class CoolWeatherDB {
         List<City> list = new ArrayList<>();
         Cursor c = db.query("City",null,"province_name = ?",new String[]{province_name},
                 null,null,null);
-        if(c.moveToNext()) {
+        while (c.moveToNext()) {
             City city = new City();
             city.setCityId(c.getInt(c.getColumnIndex("id")));
             city.setCityName(c.getString(c.getColumnIndex("city_name")));

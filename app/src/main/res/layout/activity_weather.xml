@@ -4,11 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="yeeaoo.weatherdemo.MainActivity">
+    tools:context="yeeaoo.weatherdemo.activity.WeatherActivity">
+    <include
+        layout="@layout/item_title"/>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/weather"
-        android:scaleType="fitXY"/>
 </RelativeLayout>
